@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EROS HUB</title>
+  <link rel="stylesheet" href="style/main.css" />
+  <link rel="icon" type="image/png" href="assets/logo/1x/Asset 5.png" />
+</head>
+<body>
+  <header class="navbar">
+    <!-- LOGO -->
+    <div class="logo">
+      <a href="index.html">
+        <img src="assets/logo/1x/Asset 2.png" alt="EROS HUB Logo" class="logo-img">
+      </a>
+    </div>
+
+    <!-- HAMBURGER ICON -->
+    <div class="menu-toggle" id="menuToggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <!-- NAV LINKS -->
+    <nav class="nav-links" id="navLinks">
+      <a href="#" class="active">HOME</a>
+
+      <!-- DROPDOWN CATEGORY MENU -->
+      <div class="dropdown">
+        <button class="dropbtn">CATEGORIES ▾</button>
+        <div class="dropdown-content" id="categoryDropdown">
+          <a href="#" data-category="lesbian">Lesbian</a>
+          <a href="#" data-category="amateur">Amateur</a>
+          <a href="#" data-category="milf">MILF</a>
+          <a href="#" data-category="teen">Teen</a>
+          <a href="#" data-category="anal">Anal</a>
+          <a href="#" data-category="blowjob">Blowjob</a>
+        </div>
+      </div>
+
+      <a href="#">VIDEOS</a>
+      <a href="#">PHOTOS</a>
+    </nav>
+
+    <!-- SEARCH -->
+    <div class="search-container">
+      <input type="text" id="searchField" class="search-input" placeholder="Search..." />
+      <button id="searchButton" class="search-btn">
+        <img src="assets/search-icon/icons8-search.svg" alt="Search" class="search-img" />
+      </button>
+    </div>
+  </header>
+
+  <section id="imageContainer" class="results"></section>
+
+  <!-- ===== VIDEO SECTIONS ===== -->
+  <section class="video-section">
+    <div class="video-category" id="trending">
+      <h2>🔥 Trending Videos</h2>
+      <div class="video-grid" id="trendingGrid"></div>
+    </div>
+
+    <div class="video-category" id="featured">
+      <h2>⭐ Featured Videos</h2>
+      <div class="video-grid" id="featuredGrid"></div>
+    </div>
+
+    <div class="video-category" id="recent">
+      <h2>🆕 Recently Added</h2>
+      <div class="video-grid" id="recentGrid"></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <img src="assets/logo/1x/Asset 2.png" alt="EROS HUB Logo" />
+      </div>
+      <p>&copy; 2025 <span class="highlight">EROS HUB</span>. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="#">Terms</a>
+        <a href="#">Privacy</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <script src="script/main.js"></script>
+</body>
+</html>
