@@ -1,2 +1,2 @@
 # ErosHub
-ErosHub - a new and free adult entertainment website
+ErosHub - a upcoming adult entertainment website
