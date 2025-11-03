@@ -127,6 +127,56 @@ body.filter-active .site-footer {
   display: block;
 }
 
+/* Auth buttons */
+.auth-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: 0.3s ease;
+}
+
+/* Sign Up = red */
+.signup-btn {
+  background: #d32f2f;
+  color: #fff;
+}
+
+.signup-btn:hover {
+  background: #b71c1c;
+}
+
+/* Login = outline */
+.login-btn {
+  border: 2px solid #d32f2f;
+  color: #d32f2f;
+}
+
+.login-btn:hover {
+  background: #d32f2f;
+  color: #fff;
+}
+
+/* Mobile / Tablet: buttons move inside menu vertically */
+@media (max-width: 992px) {
+  .auth-buttons {
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+  }
+  .btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+
 /* SEARCH (RIGHT) */
 .search-container {
   display: flex;
@@ -171,6 +221,30 @@ body.filter-active .site-footer {
   opacity: 1;
   margin-right: 0.5rem;
 }
+
+/* Add spacing between nav links and right-side buttons/search */
+.nav-links {
+  gap: 2.5rem; /* previously 2rem, small bump */
+  margin-right: 1.5rem; /* pushes search + buttons slightly right */
+}
+
+/* Space between auth buttons and search bar */
+.auth-buttons {
+  margin-right: 1rem; 
+}
+
+/* On mobile/tablet, no extra right space */
+@media (max-width: 992px) {
+  .nav-links {
+    margin-right: 0;
+    gap: 1.2rem;
+  }
+  .auth-buttons {
+    margin-right: 0;
+    margin-top: 10px;
+  }
+}
+
 
 /* MENU TOGGLE (MOBILE) */
 .menu-toggle {
@@ -927,7 +1001,7 @@ body.filter-active .site-footer {
 #userGallery .gallery-header {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* title left, button right */
+  justify-content: space-between;
   gap: 1rem;
 }
 
@@ -939,8 +1013,9 @@ body.filter-active .site-footer {
   padding-left: 0.6rem;
 }
 
+/* Add Button */
 #userGallery .add-btn {
-  background: #d32f2f; /* site accent color */
+  background: #d32f2f;
   color: #fff;
   border: none;
   padding: 0.5rem 1rem;
@@ -953,6 +1028,24 @@ body.filter-active .site-footer {
 #userGallery .add-btn:hover {
   background: #b71c1c;
   transform: translateY(-2px);
+}
+
+/* ✅ Mobile / Tablet Fix (balances header + button) */
+@media (max-width: 768px) {
+  #userGallery .gallery-header {
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+  }
+
+  #userGallery .gallery-title {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  #userGallery .add-btn {
+    width: 100%;
+  }
 }
 
 /* Video Grid */
@@ -1004,6 +1097,7 @@ body.filter-active .site-footer {
   background: #444;
   cursor: not-allowed;
 }
+
 
 /* ===== AGE VERIFICATION OVERLAY ===== */
 .age-overlay {
