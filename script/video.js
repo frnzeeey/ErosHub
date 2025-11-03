@@ -1,36 +1,19 @@
-// ==========================
-// LOAD VIDEO BY ID
-// ==========================
-const urlParams = new URLSearchParams(window.location.search);
-const videoId = urlParams.get("id");
+const params = new URLSearchParams(window.location.search);
 
-const videoPlayer = document.getElementById("videoPlayer");
-const videoTitle = document.getElementById("videoTitle");
-const videoDesc = document.getElementById("videoDesc");
+const videoUrl = params.get("url");
+const videoId = params.get("id");
+const videoTitle = params.get("title") || "Untitled Video";
 
-if (!videoId) {
-  videoTitle.textContent = "Video Not Found";
-  videoDesc.textContent = "No video ID was provided.";
-} else {
-  loadVideo(videoId);
+let embedSrc = "";
+
+// Build correct embed URL
+if (videoUrl) {
+  embedSrc = videoUrl;
+} else if (videoId) {
+  embedSrc = `https://www.eporner.com/embed/${videoId}/`;
 }
 
-async function loadVideo(id) {
-  const endpoint = `https://www.eporner.com/api/v2/video/id/?id=${id}`;
-
-  try {
-    const response = await fetch(endpoint);
-    if (!response.ok) throw new Error("Failed to fetch video data");
-
-    const data = await response.json();
-
-    // Set player and metadata
-    videoPlayer.src = data.embed;
-    videoTitle.textContent = data.title;
-    videoDesc.textContent = data.tags.join(", ");
-  } catch (err) {
-    console.error(err);
-    videoTitle.textContent = "                         ";
-    videoDesc.textContent = "                          ";
-  }
-}
+// Apply values
+document.getElementById("videoPlayer").src = embedSrc;
+document.getElementById("videoTitle").textContent = videoTitle;
+document.getElementById("videoDesc").textContent = "Enjoy watching ❤️";

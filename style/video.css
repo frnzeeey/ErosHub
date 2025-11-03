@@ -147,7 +147,6 @@ body {
   width: 120px;
   height: auto;
   margin-bottom: 1rem;
-  filter: brightness(0) invert(1); /* makes white logo visible on dark bg */
   transition: transform 0.3s ease;
 }
 
