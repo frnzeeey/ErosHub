@@ -25,47 +25,52 @@
   </div>
 </div>
 
+ <!-- ===== NAVBAR ===== -->
 
-  <!-- ===== NAVBAR ===== -->
+<header class="navbar">
+  <!-- LOGO -->
+  <div class="logo">
+    <a href="index.html">
+      <img src="assets/1x/Asset 8.png" alt="EROS HUB Logo" class="logo-img">
+    </a>
+  </div>
 
-  <header class="navbar">
-    <!-- LOGO -->
-    <div class="logo">
-      <a href="index.html">
-        <img src="assets/1x/Asset 8.png" alt="EROS HUB Logo" class="logo-img">
-      </a>
-    </div>
+  <!-- HAMBURGER ICON -->
+  <div class="menu-toggle" id="menuToggle">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 
-    <!-- HAMBURGER ICON -->
-    <div class="menu-toggle" id="menuToggle">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
+  <!-- NAV LINKS -->
+  <nav class="nav-links" id="navLinks">
+    <a href="#" class="active">HOME</a>
 
-    <!-- NAV LINKS -->
-    <nav class="nav-links" id="navLinks">
-      <a href="#" class="active">HOME</a>
-
-      <!-- DROPDOWN CATEGORY MENU -->
-      <div class="dropdown">
-        <button class="dropbtn">CATEGORIES ▾</button>
-        <div class="dropdown-content" id="categoryDropdown">
-          <a href="#" data-category="lesbian">Lesbian</a>
-          <a href="#" data-category="amateur">Amateur</a>
-          <a href="#" data-category="milf">MILF</a>
-          <a href="#" data-category="teen">Teen</a>
-          <a href="#" data-category="anal">Anal</a>
-          <a href="#" data-category="blowjob">Blowjob</a>
-          <a href="#" data-category="chubby">Chubby</a>
-        </div>
+    <!-- DROPDOWN CATEGORY MENU -->
+    <div class="dropdown">
+      <button class="dropbtn">CATEGORIES ▾</button>
+      <div class="dropdown-content" id="categoryDropdown">
+        <a href="#" data-category="lesbian">Lesbian</a>
+        <a href="#" data-category="amateur">Amateur</a>
+        <a href="#" data-category="milf">MILF</a>
+        <a href="#" data-category="teen">Teen</a>
+        <a href="#" data-category="anal">Anal</a>
+        <a href="#" data-category="blowjob">Blowjob</a>
+        <a href="#" data-category="chubby">Chubby</a>
       </div>
+    </div>
 
-      <a href="allvideos.html">VIDEOS</a>
-      <a href="#">PHOTOS</a>
-    </nav>
+    <a href="allvideos.html">VIDEOS</a>
+    <a href="#">PHOTOS</a>
 
-    <!-- SEARCH -->
+    <!-- AUTH BUTTONS -->
+    <div class="auth-buttons">
+      <a href="signup.html" class="btn signup-btn">Sign Up</a>
+      <a href="login.html" class="btn login-btn">Login</a>
+    </div>
+
+
+        <!-- SEARCH -->
     <div class="search-container">
       <input type="text" id="searchField" class="search-input" placeholder="Search..." />
       <button id="searchButton" class="search-btn">
@@ -75,6 +80,9 @@
   </header>
 
   <section id="imageContainer" class="results"></section>
+   
+  </nav>
+</header>
 
 <!-- ===== LATEST VIDEOS ===== -->
 <section class="video-gallery" id="videoGallery">
