@@ -313,8 +313,6 @@ signupForm?.addEventListener("submit", async (e) => {
   const email = signupForm.elements["signupEmail"].value;
   const password = signupForm.elements["signupPassword"].value; // <- probably a typo
 
-  console.log("password ==>" + password);
-
   const res = await signup(email, password, birthdate, username);
 
   if (res.code === 200) {
@@ -327,9 +325,22 @@ signupForm?.addEventListener("submit", async (e) => {
   //signupForm.reset();
 });
 
-loginForm?.addEventListener("submit", (e) => {
+loginForm?.addEventListener("submit", async (e) => {
   e.preventDefault();
-  alert("Login successful! (Integrate backend later.)");
+  const email = signupForm.elements["loginEmail"].value;
+  const password = signupForm.elements["loginPassword"].value;
+
+  loginForm;
+  //alert("Login successful! (Integrate backend later.)");
+  const res = await login(email, password);
+
+  if (res.code === 200) {
+    //console.log("LoginData ==> " + JSON.stringify(res.data))
+    alert("Login! You will be routed to login profile page!");
+  } else {
+    alert(res.message);
+  }
+
   closeModal(loginModal);
   loginForm.reset();
 });
@@ -548,7 +559,6 @@ async function signup(email, password, bDate, username) {
     birthdate,
   };
 
-  console.log("signup => " + JSON.stringify(data));
   const res = await fetch(apiUrl, {
     method: "POST",
     headers: {
@@ -563,4 +573,27 @@ async function signup(email, password, bDate, username) {
 function toMMDDYYYY(dateStr) {
   const [year, month, day] = dateStr.split("-");
   return month + day + year;
+}
+
+/* ==========================================================
+   LOGIN FUNCTIONALITY
+   ========================================================== */
+
+async function login(email, password) {
+  const apiUrl = "https://protolithic-squeamishly-ciera.ngrok-free.dev/login";
+
+  const data = {
+    email,
+    password,
+  };
+
+  const res = await fetch(apiUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  const jsonResponse = await res.json();
+  return jsonResponse;
 }
