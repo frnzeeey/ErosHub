@@ -46,14 +46,16 @@ searchField?.addEventListener("keypress", (e) => {
    SHOW / HIDE MAIN SECTIONS
    ========================================================== */
 function hideMainSections() {
-  [trendingSection, featuredSection, recentSection, userGallery].forEach((sec) => {
-    if (!sec) return;
-    sec.classList.add("fade-out");
-    setTimeout(() => {
-      sec.style.display = "none";
-      sec.classList.remove("fade-out");
-    }, 300);
-  });
+  [trendingSection, featuredSection, recentSection, userGallery].forEach(
+    (sec) => {
+      if (!sec) return;
+      sec.classList.add("fade-out");
+      setTimeout(() => {
+        sec.style.display = "none";
+        sec.classList.remove("fade-out");
+      }, 300);
+    }
+  );
 
   if (homeVideoGallery) {
     homeVideoGallery.classList.replace("fade-show", "fade-hide");
@@ -64,12 +66,14 @@ function hideMainSections() {
 }
 
 function showMainSections() {
-  [trendingSection, featuredSection, recentSection, userGallery].forEach((sec) => {
-    if (!sec) return;
-    sec.style.display = "";
-    sec.classList.add("fade-in");
-    setTimeout(() => sec.classList.remove("fade-in"), 300);
-  });
+  [trendingSection, featuredSection, recentSection, userGallery].forEach(
+    (sec) => {
+      if (!sec) return;
+      sec.style.display = "";
+      sec.classList.add("fade-in");
+      setTimeout(() => sec.classList.remove("fade-in"), 300);
+    }
+  );
 
   if (homeVideoGallery) {
     homeVideoGallery.style.display = "";
@@ -90,15 +94,19 @@ function renderVideos(videos, container) {
     const card = document.createElement("a");
     const embedUrl = v.embed || `https://www.eporner.com/embed/${v.id}/`;
 
-    card.href = `video.html?url=${encodeURIComponent(embedUrl)}&title=${encodeURIComponent(v.title)}`;
+    card.href = `video.html?url=${encodeURIComponent(
+      embedUrl
+    )}&title=${encodeURIComponent(v.title)}`;
     card.className = "video-card";
     card.target = "_self";
 
     card.innerHTML = `
-      <img src="${v.default_thumb?.src || ''}" alt="${v.title}" loading="lazy">
+      <img src="${v.default_thumb?.src || ""}" alt="${v.title}" loading="lazy">
       <div class="video-info">
         <p class="title">${v.title}</p>
-        <p class="meta">${v.length_min || '?'} min • ${v.views?.toLocaleString() || '0'} views</p>
+        <p class="meta">${v.length_min || "?"} min • ${
+      v.views?.toLocaleString() || "0"
+    } views</p>
       </div>
     `;
 
@@ -109,7 +117,13 @@ function renderVideos(videos, container) {
 /* ==========================================================
    GENERIC PAGINATION HANDLER
    ========================================================== */
-function setupPagination(prevBtn, nextBtn, pageInfoEl, fetchFunction, pageSize = 20) {
+function setupPagination(
+  prevBtn,
+  nextBtn,
+  pageInfoEl,
+  fetchFunction,
+  pageSize = 20
+) {
   let page = 1;
 
   const updatePageInfo = (dataLength) => {
@@ -160,7 +174,9 @@ async function fetchAndDisplayVideos(query, label = "results") {
 
   try {
     const res = await fetch(
-      `https://www.eporner.com/api/v2/video/search/?query=${encodeURIComponent(query)}&per_page=12&page=1`
+      `https://www.eporner.com/api/v2/video/search/?query=${encodeURIComponent(
+        query
+      )}&per_page=12&page=1`
     );
     const data = await res.json();
 
@@ -231,8 +247,12 @@ const switchToLogin = document.getElementById("switchToLogin");
 const switchToSignup = document.getElementById("switchToSignup");
 
 // Trigger Buttons (from nav or anywhere)
-const signupBtn = document.querySelector(".signup-btn") || document.getElementById("openSignupBtn");
-const loginBtn = document.querySelector(".login-btn") || document.getElementById("openLoginBtn");
+const signupBtn =
+  document.querySelector(".signup-btn") ||
+  document.getElementById("openSignupBtn");
+const loginBtn =
+  document.querySelector(".login-btn") ||
+  document.getElementById("openLoginBtn");
 
 // Forms
 const signupForm = document.getElementById("signupForm");
@@ -285,11 +305,26 @@ window.addEventListener("click", (e) => {
 });
 
 /* ====== Form Submissions (Placeholder) ====== */
-signupForm?.addEventListener("submit", (e) => {
+signupForm?.addEventListener("submit", async (e) => {
   e.preventDefault();
-  alert("Sign-up successful! (Integrate backend later.)");
+
+  const username = signupForm.elements["signupUsername"].value;
+  const birthdate = signupForm.elements["signupBirthdate"].value;
+  const email = signupForm.elements["signupEmail"].value;
+  const password = signupForm.elements["signupPassword"].value; // <- probably a typo
+
+  console.log("password ==>" + password);
+
+  const res = await signup(email, password, birthdate, username);
+
+  if (res.code === 200) {
+    alert("Sign-up successful! You will be routed to login profile page!");
+  } else {
+    alert(res.message);
+  }
+
   closeModal(signupModal);
-  signupForm.reset();
+  //signupForm.reset();
 });
 
 loginForm?.addEventListener("submit", (e) => {
@@ -303,7 +338,7 @@ loginForm?.addEventListener("submit", (e) => {
 const popupLinks = {
   gmail: "https://accounts.google.com/signin",
   twitch: "https://www.twitch.tv/login",
-  x: "https://x.com/i/flow/login"
+  x: "https://x.com/i/flow/login",
 };
 
 document.querySelectorAll(".social-btn").forEach((btn) => {
@@ -326,9 +361,18 @@ document.querySelectorAll(".social-btn").forEach((btn) => {
    ========================================================== */
 document.addEventListener("DOMContentLoaded", () => {
   const sections = [
-    { id: "trending", apiUrl: "https://www.eporner.com/api/v2/video/search/?order=top-weekly" },
-    { id: "featured", apiUrl: "https://www.eporner.com/api/v2/video/search/?order=top-rated" },
-    { id: "recent", apiUrl: "https://www.eporner.com/api/v2/video/search/?order=newest" },
+    {
+      id: "trending",
+      apiUrl: "https://www.eporner.com/api/v2/video/search/?order=top-weekly",
+    },
+    {
+      id: "featured",
+      apiUrl: "https://www.eporner.com/api/v2/video/search/?order=top-rated",
+    },
+    {
+      id: "recent",
+      apiUrl: "https://www.eporner.com/api/v2/video/search/?order=newest",
+    },
   ];
 
   sections.forEach(({ id, apiUrl }) => {
@@ -337,8 +381,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const nextBtn = document.getElementById(`${id}Next`);
     const pageInfo = document.getElementById(`${id}PageInfo`);
 
-    const updatePageInfo = setupPagination(prevBtn, nextBtn, pageInfo, (page) =>
-      loadVideos(grid, updatePageInfo, page, { apiUrl, pageSize: 8 }),
+    const updatePageInfo = setupPagination(
+      prevBtn,
+      nextBtn,
+      pageInfo,
+      (page) => loadVideos(grid, updatePageInfo, page, { apiUrl, pageSize: 8 }),
       8
     );
 
@@ -459,7 +506,11 @@ async function loadResults(query, page = 1, type = "search") {
 // Handle pagination buttons
 resultsPrev?.addEventListener("click", () => {
   if (currentResultsPage > 1)
-    loadResults(currentResultsQuery, currentResultsPage - 1, currentResultsType);
+    loadResults(
+      currentResultsQuery,
+      currentResultsPage - 1,
+      currentResultsType
+    );
 });
 
 resultsNext?.addEventListener("click", () => {
@@ -481,3 +532,35 @@ categoryLinks.forEach((link) => {
     loadResults(category, 1, "category");
   });
 });
+
+/* ==========================================================
+   SIGNUP FUNCTIONALITY
+   ========================================================== */
+async function signup(email, password, bDate, username) {
+  const apiUrl =
+    "https://protolithic-squeamishly-ciera.ngrok-free.dev/register";
+  const birthdate = toMMDDYYYY(bDate);
+
+  const data = {
+    email,
+    password,
+    username,
+    birthdate,
+  };
+
+  console.log("signup => " + JSON.stringify(data));
+  const res = await fetch(apiUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  const jsonResponse = await res.json();
+  return jsonResponse;
+}
+
+function toMMDDYYYY(dateStr) {
+  const [year, month, day] = dateStr.split("-");
+  return month + day + year;
+}
