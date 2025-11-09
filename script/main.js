@@ -327,8 +327,8 @@ signupForm?.addEventListener("submit", async (e) => {
 
 loginForm?.addEventListener("submit", async (e) => {
   e.preventDefault();
-  const email = signupForm.elements["loginEmail"].value;
-  const password = signupForm.elements["loginPassword"].value;
+  const email = loginForm.elements["loginEmail"].value;
+  const password = loginForm.elements["loginPassword"].value;
 
   loginForm;
   //alert("Login successful! (Integrate backend later.)");
