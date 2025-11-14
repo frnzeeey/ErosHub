@@ -1,0 +1,1280 @@
+/* ==========================================================
+   MAIN OPTIMIZED STYLESHEET
+   Project: EROSHUB
+   Author: Franze Kenneth Lobos
+   Production-ready, mobile-first, overflow fixes
+   ========================================================== */
+
+/* ==========================================================
+   VARIABLES & BASE STYLES
+   ========================================================== */
+:root {
+  --font-main: "Montserrat", sans-serif;
+
+  /* Core Palette */
+  --red: #d32f2f;
+  --dark-red: #b71c1c;
+  --dark-bg: #1f1f1f;
+  --surface-bg: #2a2a2a;
+  --white: #ffffff;
+  --gray-text: #aaa;
+  --light-text: #f1f1f1;
+
+  /* Semantic Colors */
+  --color-accent: var(--red);
+  --color-accent-hover: var(--dark-red);
+  --color-bg: var(--dark-bg);
+  --color-surface: var(--surface-bg);
+  --color-text: var(--light-text);
+  --color-muted: var(--gray-text);
+
+  /* Spacing */
+  --radius: 10px;
+  --transition: 0.3s ease;
+}
+
+/* ==========================================================
+   RESET & LAYOUT FIXES
+   ========================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-main);
+}
+
+/* Prevent horizontal overflow site-wide (fix mobile/tablet scroll) */
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  transition: background var(--transition);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Allow main sections to expand */
+main,
+section.video-section,
+#imageContainer {
+  flex: 1;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* ==========================================================
+   NAVBAR & SEARCH (kept as-is; mobile behavior included)
+   ========================================================== */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  background: var(--color-bg);
+  padding: 0.8rem 1.2rem;
+  position: relative;
+  z-index: 100;
+}
+
+.navbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+.logo-img {
+  height: 40px;
+  object-fit: contain;
+  transition: transform var(--transition);
+}
+.logo-img:hover {
+  transform: scale(1.05);
+}
+@media (max-width: 480px) {
+  .logo-img {
+    height: 29px;
+  }
+}
+
+/* Nav Links */
+.nav-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5rem;
+  flex: 1;
+  flex-wrap: wrap;
+}
+.nav-links a {
+  color: var(--white);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color var(--transition);
+}
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--color-accent);
+}
+
+/* Dropdown */
+.dropdown {
+  position: relative;
+}
+.dropbtn {
+  background: none;
+  color: var(--white);
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background: #222;
+  min-width: 160px;
+  border-radius: 6px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+.dropdown-content a {
+  color: var(--white);
+  padding: 10px 14px;
+  display: block;
+  text-decoration: none;
+}
+.dropdown-content a:hover {
+  background: var(--color-accent);
+}
+.show {
+  display: block;
+}
+
+/* Auth Buttons */
+.auth-buttons {
+  display: flex;
+  gap: 10px;
+}
+.btn {
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+.signup-btn {
+  background: var(--color-accent);
+  color: var(--white);
+}
+.signup-btn:hover {
+  background: var(--color-accent-hover);
+}
+.login-btn {
+  border: 2px solid var(--color-accent);
+  color: var(--color-accent);
+}
+.login-btn:hover {
+  background: var(--color-accent);
+  color: var(--white);
+}
+
+/* Search */
+.search-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.search-input {
+  width: 0;
+  opacity: 0;
+  padding: 0.4rem 0.6rem;
+  border: none;
+  border-radius: 4px;
+  background: var(--surface-bg);
+  color: var(--white);
+  transition: width var(--transition), opacity var(--transition);
+}
+.search-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.4rem;
+}
+.search-img {
+  width: 22px;
+  height: 22px;
+  filter: brightness(0) invert(1);
+  transition: transform var(--transition), filter var(--transition);
+}
+.search-btn:hover .search-img {
+  transform: scale(1.1);
+  filter: invert(39%) sepia(74%) saturate(6182%) hue-rotate(348deg)
+    brightness(90%) contrast(96%);
+}
+.search-container.active .search-input {
+  width: 140px;
+  opacity: 1;
+  margin-right: 0.5rem;
+}
+
+/* ==========================================================
+   FIX: Show Hamburger Toggle in Navbar (Mobile)
+   ========================================================== */
+
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 200;
+}
+
+.menu-toggle span {
+  width: 24px;
+  height: 3px;
+  background: #fff;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Animate into “X” */
+.menu-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translateY(6px);
+}
+.menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+.menu-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translateY(-6px);
+}
+
+/* Only visible on mobile */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: flex;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background: #111;
+    width: 100%;
+    text-align: center;
+    padding: 1rem 0;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: 150;
+  }
+
+  .nav-links.active {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+  }
+}
+
+
+/* ==========================================================
+   VIDEO GRID & GALLERY
+   ========================================================== */
+.video-grid,
+.results {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 1.5rem 1rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+@media (min-width: 600px) {
+  .video-grid,
+  .results {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  .video-grid,
+  .results {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.video-card {
+  background: #1e1e1e;
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+.video-card:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 8px 20px rgba(211, 47, 47, 0.3);
+}
+.video-card img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-bottom: 2px solid var(--surface-bg);
+}
+.video-info {
+  background: var(--surface-bg);
+  padding: 0.7rem 0.8rem;
+  text-align: center;
+}
+.video-info .title {
+  font-size: 0.9rem;
+  line-height: 1.3;
+  color: var(--color-text);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.video-info .meta {
+  font-size: 0.8rem;
+  color: var(--color-muted);
+}
+
+/* ==========================================================
+   LAYOUT FIXES FOR GALLERIES & GRID ALIGNMENT
+   ========================================================== */
+.video-gallery,
+#userGallery {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+.video-gallery .gallery-header,
+#userGallery .gallery-header {
+  margin-bottom: 1.5rem;
+}
+@media (max-width: 768px) {
+  .video-gallery,
+  #userGallery {
+    padding: 0 0.8rem;
+  }
+}
+
+/* Header container for title + button */
+#userGallery .gallery-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 0 1rem;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.add-btn {
+  background: var(--color-accent);
+  color: var(--white);
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background var(--transition);
+}
+.add-btn:hover {
+  background: var(--color-accent-hover);
+}
+
+@media (max-width: 768px) {
+  #userGallery .gallery-header {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 0.8rem;
+    padding: 0 0.8rem;
+  }
+  #userGallery .add-btn {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+/* ==========================================================
+   FOOTER
+   ========================================================== */
+.site-footer {
+  background: #111;
+  color: var(--light-text);
+  padding: 2rem 1rem;
+  text-align: center;
+  border-top: 1px solid #222;
+  margin-top: auto;
+}
+.footer-logo img {
+  width: 120px;
+  margin-bottom: 1rem;
+  transition: transform var(--transition);
+}
+.footer-logo img:hover {
+  transform: scale(1.05);
+}
+.footer-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.footer-links a {
+  color: var(--gray-text);
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: color var(--transition);
+}
+.footer-links a:hover {
+  color: var(--white);
+}
+.footer-content p {
+  font-size: 0.85rem;
+  margin: 0.4rem 0;
+  color: var(--light-text);
+}
+
+/* ==========================================================
+   AGE VERIFICATION OVERLAY (MODAL)
+   ========================================================== */
+.age-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(31,31,31,0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+.age-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+.age-modal {
+  background: #1e1e1e;
+  color: #fff;
+  padding: 2rem 1.5rem;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+  transform: translateY(-20px);
+  opacity: 0;
+  animation: modalFadeIn 0.5s forwards;
+}
+.age-image {
+  width: 100px;
+  height: auto;
+  display: block;
+  margin: 0 auto 15px auto;
+  border-radius: 10px;
+}
+@keyframes modalFadeIn {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.age-modal h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #d32f2f;
+}
+.age-modal p {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
+}
+.age-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.age-buttons .btn {
+  flex: 1 1 120px;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.back-btn {
+  background: #444;
+  color: #fff;
+}
+.back-btn:hover {
+  background: #222;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+.confirm-btn {
+  background: #d32f2f;
+  color: #fff;
+}
+.confirm-btn:hover {
+  background: #b71c1c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+@media (max-width: 480px) {
+  .age-modal h2 { font-size: 1.3rem; }
+  .age-modal p { font-size: 0.95rem; }
+}
+
+/* ==========================================================
+   AUTH MODALS
+   ========================================================== */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(6px);
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+}
+.modal-content {
+  background: #1c1c1c;
+  border-radius: 1rem;
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 420px;
+  color: #fff;
+  position: relative;
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.25);
+  text-align: center;
+  animation: fadeInUp 0.4s ease;
+}
+.modal-content h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.6rem;
+  letter-spacing: 0.5px;
+  color: #fff;
+}
+.close-btn {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  font-size: 1.7rem;
+  color: #aaa;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+.close-btn:hover { color: #ff3333; }
+.auth-form { display: flex; flex-direction: column; gap: 1.2rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.4rem; text-align: left; }
+.form-group label { font-size: 0.9rem; color: #ccc; letter-spacing: 0.3px; }
+.form-group input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border-radius: 0.6rem;
+  border: none;
+  background: #2a2a2a;
+  color: #fff;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border 0.2s ease, background 0.2s ease;
+}
+.form-group input:focus {
+  border: 1px solid #ff0000;
+  background: #1f1f1f;
+}
+.submit-btn, .btn.submit-btn {
+  background: #8b0000;
+  color: #fff;
+  font-weight: 600;
+  padding: 1rem;
+  border: none;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  margin-top: 0.5rem;
+  width: 100%;
+}
+.submit-btn:hover, .btn.submit-btn:hover {
+  background: #ff0000;
+  transform: translateY(-1px);
+}
+.social-signup { margin-top: 1.5rem; }
+.social-signup p { margin-bottom: 0.8rem; font-weight: 500; color: #ccc; letter-spacing: 0.3px; }
+.social-icons { display: flex; justify-content: center; gap: 1rem; }
+.social-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+.social-btn img {
+  width: 100%;
+  height: 100%;
+  padding: 6px;
+  border-radius: 50%;
+  background: #2a2a2a;
+  transition: background 0.3s ease;
+}
+.social-btn:hover img { background: #ff3333; }
+.social-btn:hover { transform: scale(1.1); }
+.switch-text { text-align: center; font-size: 0.95rem; color: #bbb; margin-top: 1.8rem; line-height: 1.6; }
+.switch-text a { color: #ff3333; text-decoration: none; font-weight: 500; }
+.switch-text a:hover { text-decoration: underline; }
+.terms-text { font-size: 0.8rem; text-align: center; color: #777; line-height: 1.4; }
+.terms-text a { color: #ff3333; text-decoration: none; }
+.terms-text a:hover { text-decoration: underline; }
+@media (max-width: 480px) {
+  .modal-content { padding: 2rem 1.5rem; width: 90%; }
+  .modal-content h2 { font-size: 1.4rem; margin-bottom: 1.2rem; }
+  .form-group input { padding: 0.8rem 0.9rem; }
+  .submit-btn { padding: 0.9rem; }
+  .social-btn { width: 42px; height: 42px; }
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================
+   PAGINATION
+   ========================================================== */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 2rem auto;
+  padding: 1rem 0;
+  border-top: 1px solid #2b2b2b;
+  max-width: 1400px;
+  gap: 1rem;
+}
+.pagination button {
+  background: var(--color-accent);
+  color: var(--white);
+  border: none;
+  padding: 0.6rem 1.3rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: background var(--transition), transform 0.2s ease;
+}
+.pagination button:hover {
+  background: var(--color-accent-hover);
+  transform: translateY(-2px);
+}
+.pagination span {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--white);
+}
+
+/* ==========================================================
+   VIDEO SECTIONS
+   ========================================================== */
+.video-section {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+.video-category { display: flex; flex-direction: column; gap: 1.2rem; }
+.video-category h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #ffffff;
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  padding-left: 0;
+}
+.video-category .video-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+@media (min-width: 600px) { .video-category .video-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .video-category .video-grid { grid-template-columns: repeat(4, 1fr); } }
+
+/* ==========================================================
+   MODAL LOGO
+   ========================================================== */
+.modal-logo { text-align: center; margin-bottom: 1rem; }
+.modal-logo img {
+  width: 120px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
+}
+
+/* ==========================================================
+   UPLOAD MEDIA MODAL (ErosHub Style)
+   ========================================================== */
+.upload-modal { box-shadow: 0 0 40px rgba(255, 0, 0, 0.25); max-width: 480px; }
+.upload-modal h2 { color: #fff; font-size: 1.6rem; margin-bottom: 1.8rem; text-align: center; }
+.upload-form { display: flex; flex-direction: column; gap: 1.3rem; }
+.upload-form .form-group label { color: #ccc; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.3px; }
+.upload-form input[type="text"], .upload-form textarea, .upload-form input[type="file"] {
+  width: 100%;
+  background: #2a2a2a;
+  border: none;
+  border-radius: 0.6rem;
+  color: #fff;
+  padding: 0.9rem 1rem;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border 0.2s ease, background 0.2s ease;
+}
+.upload-form input[type="text"]:focus, .upload-form textarea:focus, .upload-form input[type="file"]:focus {
+  border: 1px solid #ff0000;
+  background: #1f1f1f;
+}
+.file-upload-group { position: relative; }
+.file-upload-group input[type="file"] { padding: 0.7rem; background: #2a2a2a; cursor: pointer; }
+.file-size-text { font-size: 0.85rem; color: #bbb; margin-top: 0.4rem; font-style: italic; }
+.upload-btn {
+  background: #8b0000;
+  color: #fff;
+  font-weight: 600;
+  padding: 1rem;
+  border: none;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+.upload-btn:hover { background: #ff0000; transform: translateY(-1px); }
+@media (max-width: 480px) {
+  .upload-modal { padding: 2rem 1.4rem; width: 90%; }
+  .upload-modal h2 { font-size: 1.4rem; margin-bottom: 1.2rem; }
+  .upload-btn { padding: 0.9rem; }
+}
+
+/* ==========================================================
+   USER GREETING / LOGOUT
+   ========================================================== */
+.user-greeting { display: flex; align-items: center; gap: 1rem; color: #fff; font-weight: 500; }
+#welcomeText { font-size: 1rem; color: #ff3333; letter-spacing: 0.5px; }
+.logout-btn {
+  background: #2a2a2a;
+  color: #fff;
+  border: 1px solid #ff3333;
+  border-radius: 0.6rem;
+  padding: 0.4rem 0.9rem;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+.logout-btn:hover { background: #ff3333; transform: translateY(-1px); }
+
+/* ==========================================================
+   PROFILE MODAL — EROSHUB POLISHED VERSION
+   ========================================================== */
+
+.profile-modal {
+  background: linear-gradient(180deg, #181818, #111);
+  color: #fff;
+  border-radius: 14px;
+  padding: 28px 24px;
+  width: 90%;
+  max-width: 420px;
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.7);
+  position: relative;
+  text-align: center;
+  animation: fadeInUp 0.4s ease;
+}
+
+/* Close Button */
+.profile-modal .close-btn {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  color: #aaa;
+  font-size: 1.5rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition: color 0.2s ease;
+}
+.profile-modal .close-btn:hover {
+  color: #ff3333;
+}
+
+/* Avatar */
+.profile-avatar-large {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border: 3px solid #ff3333;
+  margin: 16px auto;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 0 10px rgba(255, 51, 51, 0.4);
+}
+.profile-avatar-large img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.avatar-edit-btn {
+  position: absolute;
+  bottom: -6px;
+  right: -6px;
+  background: #ff3333;
+  color: #000;
+  font-weight: bold;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(255, 0, 0, 0.4);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.avatar-edit-btn:hover {
+  background: #ff5555;
+  transform: scale(1.1);
+}
+
+/* Profile Info Inputs */
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+.profile-info input,
+.profile-info textarea {
+  width: 100%;
+  background: #222;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  padding: 12px 14px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.5;
+  transition: background 0.3s ease, border 0.3s ease;
+}
+.profile-info input:focus,
+.profile-info textarea:focus {
+  outline: none;
+  background: #1b1b1b;
+  border: 1px solid #ff3333;
+}
+.profile-info textarea {
+  resize: none;
+  height: 90px;
+}
+
+/* Buttons Area */
+.profile-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.profile-actions .btn {
+  border-radius: 8px;
+  font-weight: 600;
+  padding: 10px 16px;
+  transition: all 0.3s ease;
+}
+
+/* Save Changes */
+.profile-actions .submit-btn {
+  background: #ff3333;
+  color: #fff;
+  border: none;
+  flex: 1 1 100%;
+  padding: 12px 0;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-shadow: 0 3px 10px rgba(255, 51, 51, 0.3);
+}
+.profile-actions .submit-btn:hover {
+  background: #ff4d4d;
+  transform: translateY(-2px);
+}
+
+/* Secondary Buttons */
+.profile-actions .ghost-btn {
+  background: #2a2a2a;
+  color: #ccc;
+  border: 1px solid #444;
+  flex: 1 1 calc(50% - 10px);
+}
+.profile-actions .ghost-btn:hover {
+  background: #333;
+  color: #fff;
+}
+
+.profile-actions .danger-btn {
+  background: #b72a2a;
+  color: #fff;
+  flex: 1 1 calc(50% - 10px);
+}
+.profile-actions .danger-btn:hover {
+  background: #d32f2f;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .profile-modal {
+    padding: 22px 18px;
+    width: 94%;
+  }
+  .profile-avatar-large {
+    width: 90px;
+    height: 90px;
+  }
+  .profile-actions .submit-btn {
+    font-size: 0.95rem;
+  }
+}
+
+/* ==========================================================
+   NAVBAR PROFILE ICON (FIXED + ALIGNED)
+   ========================================================== */
+
+.user-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+/* Welcome text */
+.user-greeting {
+  color: #ff3333;
+  font-weight: 500;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+/* Profile icon container */
+.profile-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  position: relative;
+}
+.profile-icon:hover {
+  transform: scale(1.05);
+}
+
+/* Circular avatar */
+.profile-avatar-wrap {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid #ff3333;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1b1b1b;
+  box-shadow: 0 0 6px rgba(255, 51, 51, 0.3);
+}
+.profile-avatar-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Default avatar letter style */
+.profile-avatar-wrap span {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ff3333;
+  text-transform: uppercase;
+  user-select: none;
+}
+
+/* Search icon alignment fix */
+.search-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  gap: 6px;
+}
+.search-container .search-btn img {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+
+/* ==========================================================
+   MOBILE FIX — PROFILE ABOVE GREETING ON NAV TOGGLE
+   ========================================================== */
+@media (max-width: 768px) {
+  .user-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-top: 1rem;
+    width: 100%;
+  }
+
+  /* Reorder profile icon to appear first */
+  #profileIcon {
+    order: 1;
+  }
+
+  /* Greeting appears below profile icon */
+  #userGreeting {
+    order: 2;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #ff3333;
+    text-align: center;
+  }
+
+  /* Logout button below greeting */
+  .logout-btn {
+    order: 3;
+    font-size: 0.85rem;
+    padding: 0.45rem 1rem;
+  }
+
+  /* Search bar at the bottom */
+  .search-container {
+    order: 4;
+    width: 90%;
+    max-width: 320px;
+    margin-top: 0.6rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .search-container {
+  order: 4;
+  width: 85%;              /* Takes almost full screen width */
+  max-width: 350px;         /* Expanded maximum size */
+  margin-top: 0.8rem;
+  border-radius: 8px;
+  padding: 0.5rem 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s ease; /* Smooth resizing and color transitions */
+}
+
+/* When active (after click/focus), expands even wider */
+.search-container.active {
+  max-width: 480px;
+  border-color: #ff3333;    /* Red glow accent */
+  background: #222;
+  box-shadow: 0 0 10px rgba(255, 51, 51, 0.3);
+}
+
+/* Input inside expands too */
+.search-input {
+  flex: 1;
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.5rem;
+  outline: none;
+  transition: all 0.4s ease;
+}
+}
+
+/* ==========================================================
+   FIXED AUTH MODAL INPUTS (Signup + Login)
+   ========================================================== */
+
+.auth-form input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border-radius: 0.6rem;
+  border: none;
+  background: #2a2a2a;
+  color: #fff;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  outline: none;
+  transition: border 0.2s ease, background 0.2s ease;
+}
+
+.auth-form input:focus {
+  border: 1px solid #ff3333;
+  background: #1f1f1f;
+}
+
+.auth-form input::placeholder {
+  color: #aaa;
+  opacity: 1;
+}
+
+/* Fix the date input color and icon contrast */
+.auth-form input[type="date"] {
+  color-scheme: dark;
+  background: #2a2a2a;
+  color: #fff;
+}
+
+/* Keep modal layout neat */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.auth-form .submit-btn {
+  background: #8b0000;
+  color: #fff;
+  font-weight: 600;
+  padding: 1rem;
+  border: none;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.auth-form .submit-btn:hover {
+  background: #ff0000;
+  transform: translateY(-2px);
+}
+
+/* ==========================================================
+   FILE SIZE TEXT POLISH
+   ========================================================== */
+
+.file-size-text {
+  font-size: 0.85rem;
+  color: #bbb;
+  margin-top: 0.4rem;
+  font-style: italic;
+  text-align: left;
+}
+
+/* ==========================================================
+    SIGNUP/LOGIN MODAL
+   ========================================================== */
+
+   .modal {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.modal[style*="display: flex"] {
+  opacity: 1;
+  visibility: visible;
+}
+
+#userGallery.locked::after {
+  content: "🔒 Login to access user uploads";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(31, 31, 31, 0.9);
+  color: #ff3333;
+  font-weight: 600;
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  backdrop-filter: blur(6px);
+  text-align: center;
+  font-size: 1rem;
+}
+
+/* ==========================================================
+   USER GALLERY — LOCK OVERLAY (FULL COVER + CENTERED)
+   ========================================================== */
+#userGallery {
+  position: relative;
+  overflow: hidden;
+  min-height: 320px;
+}
+
+.user-lock-overlay {
+  position: absolute;
+  inset: 0;
+  display: none; /* hidden by default */
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 9999;
+  pointer-events: auto;
+}
+
+.user-lock-overlay .lock-message {
+  color: #ff3333;
+  font-weight: 800;
+  font-size: 1.6rem;
+  text-align: center;
+  letter-spacing: 1px;
+  padding: 1rem 1.6rem;
+  border-radius: 10px;
+  backdrop-filter: blur(4px);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.25);
+}
+
+/* Dim and blur all content except overlay when locked */
+#userGallery.locked > *:not(.user-lock-overlay) {
+  filter: blur(2px) grayscale(40%);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* Unlock when logged in */
+
+.user-lock-overlay {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}

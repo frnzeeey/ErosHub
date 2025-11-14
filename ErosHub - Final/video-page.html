@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EROS HUB - Videos</title>
+  <link rel="stylesheet" href="style/main(optimized).css" />
+  <link rel="icon" type="image/png" href="assets/1x/Asset 9.png" />
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<header class="navbar">
+  <div class="logo">
+    <a href="index.html">
+      <img src="assets/1x/Asset 8.png" alt="EROS HUB Logo" class="logo-img">
+    </a>
+  </div>
+
+  <!-- HAMBURGER MENU TOGGLE (for mobile view) -->
+  <div class="menu-toggle" id="menuToggle">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- NAV LINKS -->
+  <nav class="nav-links" id="navLinks">
+    <a href="index.html">HOME</a>
+    <div class="dropdown">
+      <button class="dropbtn">CATEGORIES ▾</button>
+      <div class="dropdown-content" id="categoryDropdown">
+        <a href="#" data-category="gay">Gay</a>
+        <a href="#" data-category="lesbian">Lesbian</a>
+        <a href="#" data-category="transgender">Transgender</a>
+        <a href="#" data-category="amateur">Amateur</a>
+        <a href="#" data-category="milf">MILF</a>
+        <a href="#" data-category="teen">Teen</a>
+        <a href="#" data-category="anal">Anal</a>
+        <a href="#" data-category="blowjob">Blowjob</a>
+        <a href="#" data-category="chubby">Chubby</a>
+        <a href="#" data-category="mature">Mature</a>
+        <a href="#" data-category="ebony">Ebony</a>
+        <a href="#" data-category="public">Public</a>
+        <a href="#" data-category="gangbang">Gangbang</a>
+        <a href="#" data-category="hentai">Hentai</a>
+        <a href="#" data-category="threesome">threesome</a>
+        <a href="#" data-category="bondage">Bondage</a>
+        <a href="#" data-category="blonde">Blonde</a>
+        <a href="#" data-category="brunette">Brunette</a>
+      </div>
+    </div>
+    <a href="video-page.html" class="active">VIDEOS</a>
+    <a href="#">PHOTOS</a>
+
+    <!-- RIGHT SIDE (welcome > profile > search) -->
+    <div class="user-actions">
+      <div class="user-greeting" id="userGreeting" style="display:none;">
+        <span id="welcomeText">👋 Welcome, User</span>
+      </div>
+
+      <!-- PROFILE ICON -->
+      <div id="profileIcon" class="profile-icon" style="display:none;">
+        <div class="profile-avatar-wrap">
+          <img id="profileAvatarImg" src="assets/icons/user-profile.svg" alt="Profile">
+        </div>
+      </div>
+
+      <!-- SEARCH -->
+      <div class="search-container">
+        <input type="text" id="searchField" class="search-input" placeholder="Search..." />
+        <button id="searchButton" class="search-btn">
+          <img src="assets/search-icon/icons8-search.svg" alt="Search" class="search-img" />
+        </button>
+      </div>
+
+      <!-- AUTH BUTTONS -->
+      <div class="auth-buttons" id="authButtons">
+        <a href="#" class="btn signup-btn">Sign Up</a>
+        <a href="#" class="btn login-btn">Login</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- ===== SEARCH & CATEGORY RESULTS ===== -->
+<section class="video-gallery" id="resultsSection" style="display: none;">
+  <h2 class="gallery-title" id="resultsTitle">🔍 Search Results</h2>
+
+  <!-- Dynamic grid for search or category videos -->
+  <div class="video-grid" id="resultsGrid"></div>
+
+  <!-- Pagination -->
+  <div class="pagination" id="resultsPagination" style="display: none;">
+    <button id="resultsPrev" disabled>Prev</button>
+    <span id="resultsPageInfo">Page 1</span>
+    <button id="resultsNext">Next</button>
+  </div>
+</section>
+
+
+<!-- ===== VIDEO SECTIONS ===== -->
+<section class="video-section">
+
+  <!-- 🔥 Trending -->
+  <div class="video-category" id="trending">
+    <h2>🔥 Trending Videos</h2>
+    <div class="video-grid" id="trendingGrid"></div>
+
+    <div class="pagination">
+      <button id="trendingPrev">Prev</button>
+      <span id="trendingPageInfo">Page 1</span>
+      <button id="trendingNext">Next</button>
+    </div>
+  </div>
+
+  <!-- ⭐ Featured -->
+  <div class="video-category" id="featured">
+    <h2>⭐ Featured Videos</h2>
+    <div class="video-grid" id="featuredGrid"></div>
+
+    <div class="pagination">
+      <button id="featuredPrev">Prev</button>
+      <span id="featuredPageInfo">Page 1</span>
+      <button id="featuredNext">Next</button>
+    </div>
+  </div>
+
+  <!-- 🆕 Recently Added -->
+  <div class="video-category" id="recent">
+    <h2>🆕 Recently Added</h2>
+    <div class="video-grid" id="recentGrid"></div>
+
+    <div class="pagination">
+      <button id="recentPrev">Prev</button>
+      <span id="recentPageInfo">Page 1</span>
+      <button id="recentNext">Next</button>
+    </div>
+  </div>
+
+</section>
+
+<!-- Search & category results -->
+<section id="results" class="results" style="display: none;"></section>
+
+
+<!-- ==============================
+     AUTH MODALS (Sign Up & Login)
+============================== -->
+
+<!-- SIGN UP MODAL -->
+<div id="signupModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" id="closeSignup">&times;</span>
+    <h2>Create Your Account</h2>
+    <form id="signupForm" class="auth-form">
+      <div class="form-group">
+        <label for="signupUsername">Username</label>
+        <input type="text" id="signupUsername" placeholder="Enter your username" required />
+      </div>
+
+      <div class="form-group">
+        <label for="signupEmail">Email</label>
+        <input type="email" id="signupEmail" placeholder="Enter your email" required />
+      </div>
+
+      <div class="form-group">
+        <label for="signupBirthdate">Birthdate</label>
+        <input type="date" id="signupBirthdate" placeholder="Enter your birthdate" required />
+      </div>
+
+      <div class="form-group">
+        <label for="signupPassword">Password</label>
+        <input type="password" id="signupPassword" placeholder="Enter your password" required />
+      </div>
+
+      <button type="submit" class="btn submit-btn">Sign Up</button>
+      <p class="switch-text">
+        Already have an account? <a href="#" id="switchToLogin">Login</a>
+      </p>
+    </form>
+  </div>
+</div>
+
+<!-- LOGIN MODAL -->
+<div id="loginModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" id="closeLogin">&times;</span>
+    <h2>Welcome Back</h2>
+    <form id="loginForm" class="auth-form">
+      <div class="form-group">
+        <label for="loginEmail">Email</label>
+        <input type="email" id="loginEmail" placeholder="Enter your email" required />
+      </div>
+
+      <div class="form-group">
+        <label for="loginPassword">Password</label>
+        <input type="password" id="loginPassword" placeholder="Enter your password" required />
+      </div>
+
+      <button type="submit" class="btn submit-btn">Login</button>
+      <p class="switch-text">
+        Don’t have an account? <a href="#" id="switchToSignup">Sign Up</a>
+      </p>
+    </form>
+  </div>
+</div>
+
+<!-- ===== PROFILE MODAL ===== -->
+<div id="profileModal" class="modal">
+  <div class="modal-content profile-modal">
+    <button class="close-btn" id="closeProfile">&times;</button>
+    <div class="profile-header">
+      <div class="profile-avatar-large">
+        <img id="profileAvatarPreview" src="assets/icons/user-profile.svg" alt="User">
+        <button id="changePhotoBtn" class="avatar-edit-btn">✎</button>
+        <input type="file" id="profilePhotoInput" accept="image/*" hidden>
+      </div>
+      <h2>Edit Profile</h2>
+    </div>
+    <form id="profileForm" class="profile-info">
+      <input type="text" id="profileName" placeholder="Enter name" />
+      <input type="text" id="profileLocation" placeholder="Enter location" />
+      <textarea id="profileBio" placeholder="About me..." rows="3"></textarea>
+      <div class="profile-actions">
+        <button type="submit" id="saveProfileBtn" class="btn submit-btn">Save Changes</button>
+        <button type="button" id="removePhotoBtn" class="btn ghost-btn">Remove Photo</button>
+        <button type="button" id="logoutBtnModal" class="btn danger-btn">Logout</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <img src="assets/1x/Asset 8.png" alt="EROS HUB Logo" />
+      </div>
+      <p>&copy; 2025 <span class="highlight">EROS HUB</span>. All rights reserved.</p>
+      <p>All Performers are 18+ and fully compliant with all applicable laws.</p>
+      <p>This website is intended for adults only. By entering, you confirm that you are 18 years of age or older.</p>
+      <p> This website is designed and developed by <u>Medyo Dirty Gang</u> Devs.</p>
+      <div class="footer-links">
+        <a href="#">Terms</a>
+        <a href="#">Privacy</a>
+        <a href="#">Contact</a>
+        <a href="#">Report a problem</a>
+        <a href="#">Video Removal</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <script src="script/main.js"></script>
+  <script src="script/video-page.js"></script>
+  <script src="script/auth-final.js"></script>
+</body>
+</html>

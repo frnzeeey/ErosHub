@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EROS HUB - Home</title>
+  <link rel="stylesheet" href="style/main(optimized).css" />
+  <link rel="icon" type="image/png" href="assets/1x/Asset 9.png" />
+</head>
+<body>
+
+<!-- ===== AGE VERIFICATION OVERLAY ===== -->
+<div id="ageOverlay" class="age-overlay">
+  <div class="age-modal">
+    <img src="assets/1x/Asset 7.png" alt="Age Verification" class="age-image" />
+    <h2>🔞 Age Verification & Content Warning </h2>
+    <p>This website contains <strong>nudity, explicit sexual content,</strong> and adult material.
+      It is intended for adults aged <strong>18 years or older</strong>.
+      By entering, you confirm that you are of legal age and consent to viewing adult content.</p>
+    <div class="age-buttons">
+      <button id="backBtn" class="btn back-btn">I am under 18 - Leave</button>
+      <button id="confirmBtn" class="btn confirm-btn">I am 18 or older - Enter</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== NAVBAR ===== -->
+<header class="navbar">
+  <div class="logo">
+    <a href="index.html">
+      <img src="assets/1x/Asset 8.png" alt="EROS HUB Logo" class="logo-img">
+    </a>
+  </div>
+
+  <!-- HAMBURGER MENU TOGGLE (for mobile view) -->
+  <div class="menu-toggle" id="menuToggle">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- NAV LINKS -->
+  <nav class="nav-links" id="navLinks">
+    <a href="#" class="active">HOME</a>
+    <div class="dropdown">
+      <button class="dropbtn">CATEGORIES ▾</button>
+      <div class="dropdown-content" id="categoryDropdown">
+        <a href="#" data-category="gay">Gay</a>
+        <a href="#" data-category="lesbian">Lesbian</a>
+        <a href="#" data-category="transgender">Transgender</a>
+        <a href="#" data-category="amateur">Amateur</a>
+        <a href="#" data-category="milf">MILF</a>
+        <a href="#" data-category="teen">Teen</a>
+        <a href="#" data-category="anal">Anal</a>
+        <a href="#" data-category="blowjob">Blowjob</a>
+        <a href="#" data-category="chubby">Chubby</a>
+        <a href="#" data-category="mature">Mature</a>
+        <a href="#" data-category="ebony">Ebony</a>
+        <a href="#" data-category="public">Public</a>
+        <a href="#" data-category="gangbang">Gangbang</a>
+        <a href="#" data-category="hentai">Hentai</a>
+        <a href="#" data-category="threesome">threesome</a>
+        <a href="#" data-category="bondage">Bondage</a>
+        <a href="#" data-category="blonde">Blonde</a>
+        <a href="#" data-category="brunette">Brunette</a>
+      </div>
+    </div>
+    <a href="video-page.html">VIDEOS</a>
+    <a href="#">PHOTOS</a>
+
+    <!-- RIGHT SIDE (welcome > profile > search) -->
+    <div class="user-actions">
+      <div class="user-greeting" id="userGreeting" style="display:none;">
+        <span id="welcomeText">👋 Welcome, User</span>
+      </div>
+
+      <!-- PROFILE ICON -->
+      <div id="profileIcon" class="profile-icon" style="display:none;">
+        <div class="profile-avatar-wrap">
+          <img id="profileAvatarImg" src="assets/icons/user-profile.svg" alt="Profile">
+        </div>
+      </div>
+
+      <!-- SEARCH -->
+      <div class="search-container">
+        <input type="text" id="searchField" class="search-input" placeholder="Search..." />
+        <button id="searchButton" class="search-btn">
+          <img src="assets/search-icon/icons8-search.svg" alt="Search" class="search-img" />
+        </button>
+      </div>
+
+      <!-- AUTH BUTTONS -->
+      <div class="auth-buttons" id="authButtons">
+        <a href="#" class="btn signup-btn">Sign Up</a>
+        <a href="#" class="btn login-btn">Login</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+
+<!-- ===== SEARCH & CATEGORY RESULTS ===== -->
+<section class="video-gallery" id="resultsSection" style="display:none;">
+  <h2 class="gallery-title" id="resultsTitle">🔍 Search Results</h2>
+  <div class="video-grid" id="resultsGrid"></div>
+  <div class="pagination" id="resultsPagination" style="display:none;">
+    <button id="resultsPrev" disabled>Prev</button>
+    <span id="resultsPageInfo">Page 1</span>
+    <button id="resultsNext">Next</button>
+  </div>
+</section>
+
+<!-- ===== LATEST VIDEOS ===== -->
+<section class="video-gallery" id="videoGallery">
+  <h2 class="gallery-title">🔥 Latest Videos</h2>
+  <div class="video-grid" id="videoGrid"></div>
+  <div class="pagination">
+    <button id="prevPage" disabled>Prev</button>
+    <span id="pageInfo">Page 1</span>
+    <button id="nextPage">Next</button>
+  </div>
+</section>
+
+<!-- ===== USER ADDED VIDEOS ===== -->
+<section class="video-gallery" id="userGallery">
+  <!-- 🔒 Overlay shown when not logged in -->
+  <div id="userLockOverlay" class="user-lock-overlay" aria-hidden="true">
+    <div class="lock-message">🔒 FOR MEMBERS ONLY</div>
+  </div>
+
+  <div class="gallery-header">
+    <h2 class="gallery-title">⭐ Added by Users</h2>
+    <button id="addVideoBtn" class="add-btn">Add</button>
+  </div>
+
+  <div class="video-grid" id="userAddedVideoGrid"></div>
+
+  <div class="pagination">
+    <button id="userPrevPage" disabled>Prev</button>
+    <span id="userPageInfo">Page 1</span>
+    <button id="userNextPage">Next</button>
+  </div>
+</section>
+
+
+<!-- SIGN UP MODAL -->
+<div id="signupModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" id="closeSignup">&times;</span>
+
+        <!-- Logo Section -->
+    <div class="modal-logo">
+      <img src="assets/1x/Asset 7.png" alt="Site Logo" />
+    </div>
+    <h2>Sign up for free</h2>
+
+    <form id="signupForm" class="auth-form">
+      <div class="form-group">
+        <label for="signupUsername">Username</label>
+        <input type="text" id="signupUsername" placeholder="Enter your username" required />
+      </div>
+
+      <div class="form-group">
+        <label for="signupEmail">Email</label>
+        <input type="email" id="signupEmail" placeholder="Enter your email" required />
+      </div>
+
+      <div class="form-group">
+        <label for="signupBirthdate">Birthdate</label>
+        <input type="date" id="signupBirthdate" required />
+      </div>
+
+      <div class="form-group">
+        <label for="signupPassword">Password</label>
+        <input type="password" id="signupPassword" placeholder="Enter your password" required />
+      </div>
+
+      <button type="submit" class="btn submit-btn">Sign Up</button>
+
+      <div class="social-signup">
+        <p>Or sign up with</p>
+        <div class="social-icons">
+          <button type="button" class="social-btn gmail" data-platform="gmail">
+            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/gmail.svg" alt="Gmail" />
+          </button>
+          <button type="button" class="social-btn twitch" data-platform="twitch">
+            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitch.svg" alt="Twitch" />
+          </button>
+          <button type="button" class="social-btn x" data-platform="x">
+            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" alt="X" />
+          </button>
+        </div>
+      </div>
+
+      <p class="switch-text">
+        Already have an account? <a href="#" id="switchToLogin">Login</a>
+      </p>
+
+      <p class="terms-text">
+        By signing up, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>,
+        including <a href="#">Cookie Use</a>.
+      </p>
+    </form>
+  </div>
+</div>
+
+<!-- LOGIN MODAL -->
+<div id="loginModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" id="closeLogin">&times;</span>
+
+            <!-- Logo Section -->
+    <div class="modal-logo">
+      <img src="assets/1x/Asset 7.png" alt="Site Logo" />
+    </div>
+    <h2>Member Login</h2>
+
+    <form id="loginForm" class="auth-form">
+      <div class="form-group">
+        <label for="loginEmail">Email</label>
+        <input type="email" id="loginEmail" placeholder="Enter your email" required />
+      </div>
+
+      <div class="form-group">
+        <label for="loginPassword">Password</label>
+        <input type="password" id="loginPassword" placeholder="Enter your password" required />
+      </div>
+
+      <button type="submit" class="btn submit-btn">Login</button>
+
+      <div class="social-signup">
+        <p>Or continue with</p>
+        <div class="social-icons">
+          <button type="button" class="social-btn gmail" data-platform="gmail">
+            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/gmail.svg" alt="Gmail" />
+          </button>
+          <button type="button" class="social-btn twitch" data-platform="twitch">
+            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitch.svg" alt="Twitch" />
+          </button>
+          <button type="button" class="social-btn x" data-platform="x">
+            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" alt="X" />
+          </button>
+        </div>
+      </div>
+
+      <p class="switch-text">
+        Don’t have an account? <a href="#" id="switchToSignup">Sign Up</a>
+      </p>
+    </form>
+  </div>
+</div>
+
+<!-- ===== UPLOAD MODAL ===== -->
+<div id="uploadModal" class="modal">
+  <div class="modal-content upload-modal">
+    <span class="close-btn" id="closeUpload">&times;</span>
+    <h2>Upload Your Media</h2>
+    <form id="uploadForm" class="upload-form">
+      <input type="text" id="mediaTitle" placeholder="Title" required />
+      <textarea id="mediaDescription" placeholder="Description..." rows="3" required></textarea>
+
+      <!-- File input + size display -->
+      <div class="file-upload-group">
+        <input type="file" id="mediaFile" accept="video/*,image/*" required />
+        <p id="fileSizeText" class="file-size-text">No file selected.</p>
+      </div>
+
+      <button type="submit" class="btn submit-btn upload-btn">Upload</button>
+    </form>
+  </div>
+</div>
+
+
+<!-- ===== PROFILE MODAL ===== -->
+<div id="profileModal" class="modal">
+  <div class="modal-content profile-modal">
+    <button class="close-btn" id="closeProfile">&times;</button>
+    <div class="profile-header">
+      <div class="profile-avatar-large">
+        <img id="profileAvatarPreview" src="assets/icons/user-profile.svg" alt="User">
+        <button id="changePhotoBtn" class="avatar-edit-btn">✎</button>
+        <input type="file" id="profilePhotoInput" accept="image/*" hidden>
+      </div>
+      <h2>Edit Profile</h2>
+    </div>
+    <form id="profileForm" class="profile-info">
+      <input type="text" id="profileName" placeholder="Enter name" />
+      <input type="text" id="profileLocation" placeholder="Enter location" />
+      <textarea id="profileBio" placeholder="About me..." rows="3"></textarea>
+      <div class="profile-actions">
+        <button type="submit" id="saveProfileBtn" class="btn submit-btn">Save Changes</button>
+        <button type="button" id="removePhotoBtn" class="btn ghost-btn">Remove Photo</button>
+        <button type="button" id="logoutBtnModal" class="btn danger-btn">Logout</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <img src="assets/1x/Asset 8.png" alt="EROS HUB Logo" />
+      </div>
+      <p>&copy; 2025 <span class="highlight">EROS HUB</span>. All rights reserved.</p>
+      <p>All Performers are 18+ and fully compliant with all applicable laws.</p>
+      <p>This website is intended for adults only. By entering, you confirm that you are 18 years of age or older.</p>
+      <p> This website is designed and developed by <u>Medyo Dirty Gang</u> Devs.</p>
+      <div class="footer-links">
+        <a href="#">Terms</a>
+        <a href="#">Privacy</a>
+        <a href="#">Contact</a>
+        <a href="#">Report a problem</a>
+        <a href="#">Video Removal</a>
+      </div>
+    </div>
+  </footer>
+
+<script src="script/main.js"></script>
+<script src="script/auth-final.js"></script>
+<script src="script/access-control.js"></script>
+</body>
+</html>
